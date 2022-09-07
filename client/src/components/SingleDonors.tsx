@@ -4,11 +4,11 @@ type DonorProps = {
   ethPaid: number | string;
   address: string | number;
 };
-const SingleDonors = ({ ethPaid, address }: DonorProps) => {
+const SingleDonors = ({ address, ethPaid }: DonorProps) => {
   return (
-    <div>
-      ❤ {ethPaid} ETH by {address}
-    </div>
+    <li>
+      ❤ {ethPaid} WEI by {address}
+    </li>
   );
 };
 
