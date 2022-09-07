@@ -1,18 +1,19 @@
 import React from "react";
+import { useGlobalContext } from "../context/DonationsContext";
 import SingleDonors from "./SingleDonors";
 
 const Donators = () => {
-  const donors = [
-    [3, "0x334477yFRwwrhnmC4"],
-    [3, "0x334477yFRwwrhnmC4"],
-    [3, "0x334477yFRwwrhnmC4"],
-    [3, "0x334477yFRwwrhnmC4"],
-    [3, "0x334477yFRwwrhnmC4"],
-  ].map(([amount, addr], _index) => {
-    return <SingleDonors ethPaid={amount} address={addr} />;
-  });
+  const { donors } = useGlobalContext();
 
-  return <div>{donors}</div>;
+  return (
+    <div>
+      <ul>
+        {donors.map(([addr, amount], _index) => {
+          return <SingleDonors ethPaid={amount} address={addr} key={_index} />;
+        })}
+      </ul>
+    </div>
+  );
 };
 
 export default Donators;
