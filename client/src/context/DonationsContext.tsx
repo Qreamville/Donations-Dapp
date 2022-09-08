@@ -28,31 +28,31 @@ const DonationsContext = createContext({} as DonationType);
 const AppContextProvider = ({ children }: childrenProps) => {
   const [isConnected, setIsConnected] = useState(false);
   const [amount, setAmount] = useState(0);
-  const [accounts, setAccounts] = useState<string[]>([]);
   const [donors, setDonors] = useState([]);
 
-  useEffect(() => {
-    const gettingDonor = async () => {
-      if (typeof window.ethereum != "undefined") {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
-        const contract = new ethers.Contract(
-          "0x1C89D3e5C78fcBE10E2277Bd2BDa4302720DE599",
-          artifacts.abi,
-          signer
-        );
-        try {
-          const getDonators = await contract.getDonors();
-          const donations = getDonators.map((element: any) => [
-            truncateEthAddress(element[0]),
-            element[1].toString(),
-          ]);
-          setDonors(donations);
-        } catch (error) {
-          console.log(error);
-        }
+  const gettingDonor = async () => {
+    if (typeof window.ethereum != "undefined") {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(
+        "0x1C89D3e5C78fcBE10E2277Bd2BDa4302720DE599",
+        artifacts.abi,
+        signer
+      );
+      try {
+        const getDonators = await contract.getDonors();
+        const donations = getDonators.map((element: any) => [
+          truncateEthAddress(element[0]),
+          element[1].toString(),
+        ]);
+        setDonors(donations);
+      } catch (error) {
+        console.log(error);
       }
-    };
+    }
+  };
+
+  useEffect(() => {
     gettingDonor();
   }, []);
 
@@ -87,6 +87,7 @@ const AppContextProvider = ({ children }: childrenProps) => {
         console.log(error);
       }
     }
+    gettingDonor();
   };
 
   return (
