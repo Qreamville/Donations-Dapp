@@ -31,28 +31,6 @@ const AppContextProvider = ({ children }: childrenProps) => {
   const [accounts, setAccounts] = useState<string[]>([]);
   const [donors, setDonors] = useState([]);
 
-  const checkConnect = async () => {
-      if (typeof window.ethereum != "undefined") {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const _accounts = await provider.listAccounts();
-        setAccounts(_accounts);
-        if (accounts.length) setIsConnected(true);
-      }
-    };
-    checkConnect();
-
-  // useEffect(() => {
-  //   const checkConnect = async () => {
-  //     if (typeof window.ethereum != "undefined") {
-  //       const provider = new ethers.providers.Web3Provider(window.ethereum);
-  //       const _accounts = await provider.listAccounts();
-  //       setAccounts(_accounts);
-  //       if (accounts.length) setIsConnected(true);
-  //     }
-  //   };
-  //   checkConnect();
-  // }, [accounts]);
-
   useEffect(() => {
     const gettingDonor = async () => {
       if (typeof window.ethereum != "undefined") {
